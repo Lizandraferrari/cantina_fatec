@@ -1,0 +1,8 @@
+nav{
+  background-color: #b20000;
+}
+
+a:hover{
+  transform: scale(1.03);
+  transition: transform 0.2s ease;
+}

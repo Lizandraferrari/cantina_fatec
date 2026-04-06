@@ -1,5 +1,5 @@
 nav{
-  background-color: #b20000;
+  background-color: var(--vermelho-cps);
 }
 
 a:hover{

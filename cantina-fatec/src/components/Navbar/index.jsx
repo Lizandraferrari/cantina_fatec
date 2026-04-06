@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
     <>
       <nav className="d-none d-md-flex justify-content-between align-items-center p-3 m-0">
-        
+
         <div className="m-0">
           <Link to="/" className="text-white text-decoration-none">
             FATEC
@@ -14,11 +16,11 @@ const Navbar = () => {
         </div>
 
         <ul className="d-flex list-unstyled gap-2 m-0 pe-2">
-          
+
           <li>
-            <Link 
-              to="/estoque" 
-              className="text-white text-decoration-none fw-medium px-3 py-2 rounded d-flex align-items-center"
+            <Link
+              to="/estoque"
+              className={`text-white fw-medium px-3 py-2 rounded d-flex align-items-center ${location.pathname === "/estoque" ? "" : "text-decoration-none"}`}
             >
               <i className="bi bi-basket me-2"></i>
               Estoque
@@ -26,9 +28,9 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link 
-              to="/pedidos" 
-              className="text-white text-decoration-none fw-medium px-3 py-2 rounded d-flex align-items-center"
+            <Link
+              to="/pedidos"
+              className={`text-white fw-medium px-3 py-2 rounded d-flex align-items-center ${location.pathname === "/pedidos" ? "" : "text-decoration-none"}`}
             >
               <i className="bi bi-card-list me-2"></i>
               Pedidos
@@ -36,9 +38,9 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link 
-              to="/perfil" 
-              className="text-white text-decoration-none fw-medium px-3 py-2 rounded d-flex align-items-center"
+            <Link
+              to="/perfil"
+              className={`text-white fw-medium px-3 py-2 rounded d-flex align-items-center ${location.pathname === "/perfil" ? "" : "text-decoration-none"}`}
             >
               <i className="bi bi-person me-2"></i>
               Perfil
@@ -49,26 +51,26 @@ const Navbar = () => {
       </nav>
 
       <nav className="d-flex d-md-none justify-content-around align-items-center position-fixed bottom-0 start-0 w-100 py-1 ">
-        
-        <Link 
-          to="/estoque" 
-          className="d-flex flex-column align-items-center text-white text-decoration-none fw-medium"
+
+        <Link
+          to="/estoque"
+          className={`d-flex flex-column align-items-center text-white fw-medium ${location.pathname === "/estoque" ? "" : "text-decoration-none"}`}
         >
           <i className="bi bi-basket fs-5"></i>
           Estoque
         </Link>
 
-        <Link 
-          to="/pedidos" 
-          className="d-flex flex-column align-items-center text-white text-decoration-none fw-medium"
+        <Link
+          to="/pedidos"
+          className={`d-flex flex-column align-items-center text-white fw-medium ${location.pathname === "/pedidos" ? "" : "text-decoration-none"}`}
         >
           <i className="bi bi-card-list fs-5"></i>
           Pedidos
         </Link>
 
-        <Link 
-          to="/perfil" 
-          className="d-flex flex-column align-items-center text-white text-decoration-none fw-medium"
+        <Link
+          to="/perfil"
+          className={`d-flex flex-column align-items-center text-white fw-medium ${location.pathname === "/perfil" ? "" : "text-decoration-none"}`}
         >
           <i className="bi bi-person fs-5"></i>
           Perfil

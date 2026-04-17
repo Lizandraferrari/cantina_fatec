@@ -1,3 +1,4 @@
+import CardProduto from "../../components/card";
 
 const Pedidos = () => {
   return (

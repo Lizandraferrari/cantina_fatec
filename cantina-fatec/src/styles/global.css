@@ -28,8 +28,18 @@ button{
 button:hover{
   background-color: var(--azul-cps-hover);
 }
+.btn-close:hover{
+  background-color: transparent;
+}
 .vermelho {
   background-color: var(--vermelho-cps);
+}
+.azul-claro {
+  background-color: var(--azul-claro-cps);
+  color: #000 !important;
+}
+.azul-claro:hover {
+  background-color: var(--azul-claro-cps-hover);
 }
 .vermelho:hover{
   background-color: var(--vermelho-cps-hover);
@@ -42,4 +52,15 @@ button:hover{
   --cinza-hover: #dadada;
   --azul-cps: #005C6D;
   --azul-cps-hover: #004854;
+  --azul-claro-cps: #00C1CF;
+  --azul-claro-cps-hover: #00D8E8;
 }
+.modal-content {
+  background-color: var(--cinza-background);
+  max-width: 700px;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+

@@ -1,7 +1,7 @@
-import Input from '../../../components/input';
-import Button from '../../../components/button';
+import Input from '@/components/input';
+import Button from '@/components/button';
 import '../auth.css';
-import Seletor from '../../../components/seletor';
+import Seletor from '@/components/seletor';
 
 const Login = () => {
   const options = ['f113 - Fatec Mauá']

@@ -1,4 +1,4 @@
-import CardProduto from "../../components/card";
+import CardProduto from '@/components/card';
 
 const Pedidos = () => {
   return (

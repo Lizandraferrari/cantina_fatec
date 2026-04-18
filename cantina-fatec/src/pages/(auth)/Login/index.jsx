@@ -1,5 +1,5 @@
-import Input from '../../../components/input';
-import Button from '../../../components/button';
+import Input from '@/components/input';
+import Button from '@/components/button';
 import '../auth.css';
 
 const Login = () => {

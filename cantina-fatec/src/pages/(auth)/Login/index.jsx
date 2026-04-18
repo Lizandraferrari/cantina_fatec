@@ -1,8 +1,32 @@
+import { useState } from 'react';
 import Input from '@/components/input';
 import Button from '@/components/button';
+import api from '@/services/api';
 import '../auth.css';
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+
+  async function handleLogin(e) {
+    e.preventDefault()
+
+    try {
+      const response = await api.post('/usuarios/login', {
+        email: email,
+        senha: senha
+      })
+
+      const token = response.data.token
+      console.log('Token recebido:', token)
+      localStorage.setItem('token', token)
+      window.location.href = '/pedidos'
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='auth justify-content-center d-flex flex-column align-items-center'>
       <h1 className='text-white m-4'>Fatec</h1>
@@ -12,8 +36,8 @@ const Login = () => {
           Área da Cantina
         </h2>
 
-        <div className='p-4 gap-3 d-flex flex-column'>
-          <label className= 'fw-medium' htmlFor='email'>
+        <form onSubmit={handleLogin} className='p-4 gap-3 d-flex flex-column'>
+          <label className='fw-medium' htmlFor='email'>
             Faça seu Login:
           </label>
 
@@ -22,19 +46,25 @@ const Login = () => {
             name='email'
             label='E-mail'
             placeholder='fulano.silva@fatec.sp.gov.br'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
+
           <Input
             type='password'
             name='password'
             label='Senha'
             placeholder='••••••••'
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
+
           <Button
             label='Entrar'
             type='submit'
-            
           />
-        </div>
+        </form>
+
         <a
           className='text-decoration-underline'
           href='/cadastro'

@@ -43,11 +43,23 @@ const Login = () => {
             label='Confirmar Senha'
             placeholder='••••••••'
           />
-          <Button
-            label='Entrar'
-            type='submit'
-            
-          />
+
+          <Button 
+            type='submit' 
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span 
+                  className="spinner-border spinner-border-sm mx-2" 
+                  role="status"
+                />
+                Cadastrando...
+              </>
+            ) : (
+              'Cadastrar'
+            )}
+          </Button>
         </div>
         <a
           className='text-decoration-underline'

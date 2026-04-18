@@ -5,25 +5,30 @@ import api from '@/services/api';
 import '../auth.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false); 
 
   async function handleLogin(e) {
-    e.preventDefault()
+    e.preventDefault();
+
+    setLoading(true); 
 
     try {
       const response = await api.post('/usuarios/login', {
         email: email,
         senha: senha
-      })
+      });
 
-      const token = response.data.token
-      console.log('Token recebido:', token)
-      localStorage.setItem('token', token)
-      window.location.href = '/pedidos'
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
+      window.location.href = '/pedidos';
 
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -32,9 +37,7 @@ const Login = () => {
       <h1 className='text-white m-4'>Fatec</h1>
 
       <div className='form d-flex flex-column align-items-center justify-content-center py-5 px-3 mb-4 rounded '>
-        <h2>
-          Área da Cantina
-        </h2>
+        <h2>Área da Cantina</h2>
 
         <form onSubmit={handleLogin} className='p-4 gap-3 d-flex flex-column'>
           <label className='fw-medium' htmlFor='email'>
@@ -59,10 +62,23 @@ const Login = () => {
             onChange={(e) => setSenha(e.target.value)}
           />
 
-          <Button
-            label='Entrar'
-            type='submit'
-          />
+          <Button 
+            type='submit' 
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span 
+                  className="spinner-border spinner-border-sm mx-2" 
+                  role="status"
+                />
+                Entrando...
+              </>
+            ) : (
+              'Entrar'
+            )}
+          </Button>
+
         </form>
 
         <a

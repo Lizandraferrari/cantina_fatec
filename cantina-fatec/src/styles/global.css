@@ -1,5 +1,9 @@
+
 body{
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  min-height: 100vh;
   background-color: var(--cinza-background);
   font-family: Roboto, sans-serif;
   font-weight: 300;

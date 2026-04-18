@@ -13,7 +13,7 @@ export default function Input({ label, name, value, onChange, type , className ,
                 name={name}
                 value={value}
                 onChange={onChange}
-                className={`m-0 py-1 px-3 rounded-pill border border-1 ${className || ''}`}
+                className={`m-0 py-1 px-3 rounded-pill border border-1 font-light ${className || ''}`}
                 placeholder={placeholder}
             />
         </div>

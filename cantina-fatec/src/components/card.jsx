@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./button";
 import Modal from "./modal";
 
-export default function CardProduto({ name, image, price, quantity, color }) {
+export default function CardProduto({ name, image, price, quantity , category}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const editarProduto = () => {
@@ -47,7 +47,6 @@ export default function CardProduto({ name, image, price, quantity, color }) {
           className="w-100 mt-2 btn btn-primary"
           aria-label="Editar"
           onClick={editarProduto}
-          color={color}
         >
           
         </Button>

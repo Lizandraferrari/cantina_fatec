@@ -1,27 +1,29 @@
 export default function Seletor(data) {
   const options = data.options;
+  const isHorizontal = data.orientation === 'horizontal';
 
   return (
-    <div className="d-flex flex-column">
+    <div className={`d-flex ${isHorizontal ? 'flex-row align-items-center gap-2' : 'flex-column'}`}>
+      
       <label 
         htmlFor="opcoes-selecao" 
-        className="align-self-start mx-2">
+        className={isHorizontal ? 'mb-0 p-0 w-75' : 'align-self-start mx-2'}
+      >
         {data.label}
       </label>
 
-        <select
-          id="opcoes-selecao"
-          onChange={data.onChange}
-          className="form-select px-3 p-1 cursor-pointer border rounded-pill fw-light"
-         
-        >
+      <select
+        id="opcoes-selecao"
+        onChange={data.onChange}
+        className="form-select px-3 p-1 cursor-pointer border rounded-pill fw-light "
+      >
+        {options.map((item, i) => (
+          <option key={i} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
 
-          {options.map((item, i) => (
-            <option key={i} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
     </div>
   );
 }

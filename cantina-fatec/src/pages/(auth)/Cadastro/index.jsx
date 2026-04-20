@@ -2,9 +2,11 @@ import Input from '@/components/input';
 import Button from '@/components/button';
 import '../auth.css';
 import Seletor from '@/components/seletor';
+import { useState } from 'react';
 
 const Login = () => {
   const options = ['f113 - Fatec Mauá']
+  const [loading, setLoading] = useState(false); 
 
   return (
     <div className='auth justify-content-center d-flex flex-column align-items-center'>

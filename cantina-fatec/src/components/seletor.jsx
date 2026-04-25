@@ -14,6 +14,7 @@ export default function Seletor(data) {
 
       <select
         id="opcoes-selecao"
+        value={data.value}
         onChange={data.onChange}
         className="form-select px-3 p-1 cursor-pointer border rounded-pill fw-light "
       >

@@ -10,12 +10,25 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmSenha, setConfirmSenha] = useState('');
   const [nome, setNome] = useState('');
   const [loading, setLoading] = useState(false); 
-  const [estilo , setEstilo] = useState('');
+  
+  const [emailErro, setEmailErro] = useState('');
+  const [senhaErro, setSenhaErro] = useState('');
 
- async function handleRegister(e) {
+  const estiloErro = 'border border-danger';
+
+  async function handleRegister(e) {
     e.preventDefault();
+
+    if (senha !== confirmSenha) {
+      setSenhaErro("As senhas devem ser iguais.");
+      setLoading(false);
+
+    } else {
+      setSenhaErro('');
+    }
 
     setLoading(true); 
     try {
@@ -23,7 +36,7 @@ const Login = () => {
           email: email,
           senha: senha
         })
-      setEstilo('border border-danger');
+      setEmailErro('E-mail já cadastrado.');
       setLoading(false);
 
     } catch (error) {
@@ -65,14 +78,14 @@ const Login = () => {
 
           <Input
             type='text'
-            className={estilo}
+            className={emailErro ? estiloErro : ''}
             name='email'
             label='E-mail'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='fulano.silva@fatec.sp.gov.br'
           />
-          {estilo ? <span className='text-danger d-relative m-0'>E-mail já cadastrado.</span> : null}
+          {emailErro ? <span className='text-danger d-relative m-0'>{emailErro}</span> : null}
           <Seletor 
             label={"Selecione Sua Unidade"}
             default={options[0]}
@@ -85,16 +98,23 @@ const Login = () => {
             type='password'
             name='password'
             label='Senha'
+            className={senhaErro ? estiloErro : ''}
             placeholder='••••••••'
             value={senha}
             onChange={(e) => setSenha(e.target.value)}  
           />
+          {senhaErro && <span className='text-danger d-relative'>{senhaErro}</span>}
+
           <Input
             type='password'
             name='confirmPassword'
             label='Confirmar Senha'
+            className={senhaErro ? estiloErro : ''}
             placeholder='••••••••'
+            value={confirmSenha}
+            onChange={(e) => setConfirmSenha(e.target.value)}
           />
+          {senhaErro && <span className='text-danger d-relative m-0'>{senhaErro}</span>}
 
           <Button 
             type='submit' 

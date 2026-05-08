@@ -3,11 +3,21 @@ import Seletor from "@/components/seletor";
 import CardProduto from "@/components/card";
 import api from "@/services/api";
 import { useEffect, useState } from "react";
+import Modal from "@/components/modal";
 
 const Estoque = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [produtos, setProdutos] = useState(null);
   const [loading, setLoading] = useState('true')
+
+  const novoProduto = () => {
+    setIsModalOpen(true);
+  };
+
+  const fecharModal = () => {
+    setIsModalOpen(false);
+  }
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -31,7 +41,11 @@ const Estoque = () => {
       ></Header>
 
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center p-2 gap-2">
-        <div className="d-flex align-items-center">
+        <div 
+          className="d-flex align-items-center "
+          onClick={novoProduto}
+          style={{ cursor: 'pointer'}}
+          >
           <i className="bi bi-plus text-danger fs-2"></i>
           <label className="fw-bold">
             Novo Produto
@@ -74,6 +88,14 @@ const Estoque = () => {
         }
 
       </div>
+            <Modal 
+              isOpen={isModalOpen}
+              onClose={fecharModal}
+              nome={''}
+              preco={''}
+              quantidade={0}
+              imagem={''}
+            />
     </div>
   );
 };

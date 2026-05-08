@@ -1,5 +1,6 @@
 nav{
   background-color: var(--vermelho-cps);
+  z-index: 777;
 }
 
 a:hover{

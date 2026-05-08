@@ -42,6 +42,24 @@ button:hover{
   background-color: var(--azul-claro-cps);
   color: #000 !important;
 }
+.entregue{
+  color: var(--verde-cps-ok)!important;
+}
+.borda-entregue{
+  border-color: var(--verde-cps-ok) !important;
+}
+.pendente{
+  color: var(--amarelo-cps-pendente)!important;
+}
+.borda-pendente{
+  border-color: var(--amarelo-cps-pendente) !important;
+}
+.cancelado{
+  color: var(--vermelho-cps-cancelado)!important;
+}
+.borda-cancelado{
+  border-color: var(--vermelho-cps-cancelado) !important;
+}
 .azul-claro:hover {
   background-color: var(--azul-claro-cps-hover);
 }
@@ -58,6 +76,9 @@ button:hover{
   --azul-cps-hover: #004854;
   --azul-claro-cps: #00C1CF;
   --azul-claro-cps-hover: #00D8E8;
+  --verde-cps-ok: #3ACF1F;
+  --amarelo-cps-pendente: #B78718;
+  --vermelho-cps-cancelado: #D32719;
 }
 .modal-content {
   background-color: var(--cinza-background);

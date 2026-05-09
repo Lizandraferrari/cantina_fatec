@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Button from "./button";
 
 export default function CardPedido({ pedido }) {
   const [expandido, setExpandido] = useState(false);
@@ -35,22 +36,32 @@ export default function CardPedido({ pedido }) {
         role="button"
         style={{ cursor: isMobile ? "pointer" : "default" }}
       >
-        <div className="d-flex flex-column gap-2 col-md-4 ">
-          <div className="d-flex align-items-start mx-2">
+        <div className="d-flex flex-column gap-2 col-md-4 gap-3">
+          <div className={`${status === "cancelado" ? "text-decoration-line-through cancelado" : ""} d-flex align-items-start mx-2`}>
             <h5 className={`fw-bold p-0 m-0 ${status}`}>
-                #{pedido.id} -
-            </h5>          
+              #{pedido.id} -
+            </h5>
             <h5 className='fw-regular p-0 m-0 mx-1'>
-                {pedido.nome}
+              {pedido.nome}
             </h5>
           </div>
-          <small className="text-muted d-block">
-            Feito às {pedido.data}
-          </small>
+          <div className="d-flex align-items-start mx-2">
+            <small className="text-muted d-block">
+              Feito às {pedido.data}
+            </small>
+          </div>
+          <div className="d-flex align-items-start mx-2">
+            <small className={`fw-semibold ${status}`}>
+              Status: 
+            </small>
+            <small className={`fw-semibold mx-1 text-decoration-underline ${status}`}>
+              {pedido.status.charAt(0).toUpperCase() + pedido.status.slice(1)} 
+            </small>
+            <small className={`fw-semibold text-decoration-underline ${status}`}>
+              {pedido.horastatus}
+            </small>
+          </div>
 
-          <small className={`fw-semibold ${status}`}>
-            Status: {pedido.status}
-          </small>
         </div>
 
         <div className="position-absolute top-0 end-0 p-2">
@@ -63,34 +74,40 @@ export default function CardPedido({ pedido }) {
         </div>
 
         <div
-          className={`${
-            isMobile && !expandido ? "d-none" : ""
-          } ${!isMobile ? "col-md-8 flex-column d-flex" : ""}`}
+          className={`${isMobile && !expandido ? "d-none" : ""
+            } ${!isMobile ? "col-md-8 flex-md-column d-flex align-items-md-center" : ""}`}
         >
-            <div className="d-flex flex-row justify-content-between ">
-              <label className="fw-normal mx-3">Itens:</label>
-              {!isMobile ? (
-                <p className="fw-bold p-0 m-0">
-                  Total: {pedido.total}
-                </p>
-              ) : null}
-            </div>
+          <div className="d-flex flex-row justify-content-between ">
+            <label className="fw-normal mx-3">Itens:</label>
+            {!isMobile ? (
+              <p className={`${status === "cancelado" ? "text-decoration-line-through" : ""} fw-bold p-0 m-0`}>
+                Total: {pedido.total}
+              </p>
+            ) : null}
+          </div>
 
-            <ul className="text-start m-0 ">
-              {pedido.itens.map((item, index) => (
-                <li key={index} >
-                  <small className="m-0 p-0 ">
-                    {item}
-                  </small>
-                </li>
-              ))}
-            </ul>
+          <ul className="text-start m-0 ">
+            {pedido.itens.map((item, index) => (
+              <li key={index} >
+                <small className={`${status === "cancelado" ? "text-decoration-line-through" : ""} m-0 p-0 `}>
+                  {item}
+                </small>
+              </li>
+            ))}
+          </ul>
 
-                {isMobile && expandido? (
-<p className="fw-bold m-0 mt-2 p-0 text-center">
-                    Total: {pedido.total}
-                </p>
-              ) : null}
+          {isMobile && expandido ? (
+            <p className={`${status === "cancelado" ? "text-decoration-line-through" : ""} fw-bold m-0 mt-2 p-0 text-center`}>
+              Total: {pedido.total}
+            </p>
+          ) : null}
+
+          {status === "pendente" ? (
+             <Button 
+              className="mt-2"
+              label="Confirmar Entrega"
+            ></Button>) : null
+          }
 
         </div>
       </div>

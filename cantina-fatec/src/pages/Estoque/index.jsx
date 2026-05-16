@@ -9,7 +9,7 @@ const Estoque = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [produtos, setProdutos] = useState(null);
-  const [loading, setLoading] = useState('true')
+  const [loading, setLoading] = useState(true)
 
   const novoProduto = () => {
     setIsModalOpen(true);

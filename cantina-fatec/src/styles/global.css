@@ -38,6 +38,9 @@ input::placeholder{
 .btn-close:hover{
   background-color: transparent;
 }
+.cinza-background{
+  background-color: var(--cinza-background);
+}
 .vermelho {
   background-color: var(--vermelho-cps);
 }
@@ -92,3 +95,12 @@ input::placeholder{
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+.w-md-25{
+  width: 100%;
+}
+
+@media (min-width: 768px){
+  .w-md-25{
+    width: 25%;
+  }
+}

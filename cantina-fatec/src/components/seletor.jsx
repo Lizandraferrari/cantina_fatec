@@ -3,7 +3,7 @@ export default function Seletor(data) {
   const isHorizontal = data.orientation === 'horizontal';
 
   return (
-    <div className={`d-flex ${isHorizontal ? 'flex-row align-items-center gap-2' : 'flex-column'}`}>
+    <div className={`d-flex ${isHorizontal ? 'flex-row align-items-center gap-2 w-md-25 ' : 'flex-column'}`}>
       
       <label 
         htmlFor="opcoes-selecao" 

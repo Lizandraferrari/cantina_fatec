@@ -8,7 +8,7 @@ const Layout = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-   useEffect(() => {
+  useEffect(() => {
     const validarToken = async () => {
       const token = localStorage.getItem('token');
 
@@ -23,11 +23,11 @@ const Layout = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        
+
         const valido = response.data.mensagem
         if (valido !== 'Ok') {
           localStorage.removeItem('token');
-          
+
         }
 
       } catch (error) {
@@ -41,15 +41,15 @@ const Layout = () => {
   }, [location, navigate]);
 
 
-return (
+  return (
 
-  <div>
-    <Navbar />
-    <main>
-      <Outlet />
-    </main>
-  </div>
-);
+    <div>
+      <Navbar />
+      <main className="m-0 p-0">
+        <Outlet />
+      </main>
+    </div>
+  );
 };
 
 export default Layout;

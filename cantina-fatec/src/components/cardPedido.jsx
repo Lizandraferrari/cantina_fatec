@@ -29,19 +29,19 @@ export default function CardPedido({ pedido }) {
   const status = pedido.status.toLowerCase();
 
   return (
-    <div className={`${'borda-' + status} border border-1 p-3 mb-3 shadow-sm bg-light rounded-3 `}>
+    <div className={`${'borda-' + status} border border-1 p-3 mb-3 sombra rounded-3 `}>
       <div
         className="d-flex flex-column flex-md-row align-items-md-center position-relative"
         onClick={toggle}
         role="button"
         style={{ cursor: isMobile ? "pointer" : "default" }}
       >
-        <div className="d-flex flex-column gap-2 col-md-4 gap-3">
+        <div className="d-flex flex-column gap-2 col-md-5 align-self-start my-md-2">
           <div className={`${status === "cancelado" ? "text-decoration-line-through cancelado" : ""} d-flex align-items-start mx-2`}>
-            <h5 className={`fw-bold p-0 m-0 ${status}`}>
+            <h5 className={`p-0 m-0 ${status}`}>
               #{pedido.id} -
             </h5>
-            <h5 className='fw-regular p-0 m-0 mx-1'>
+            <h5 className='text-black fw-medium p-0 m-0 mx-1'>
               {pedido.nome}
             </h5>
           </div>
@@ -75,9 +75,9 @@ export default function CardPedido({ pedido }) {
 
         <div
           className={`${isMobile && !expandido ? "d-none" : ""
-            } ${!isMobile ? "col-md-8 flex-md-column d-flex align-items-md-center" : ""}`}
+            } ${!isMobile ? "col-md-7 flex-md-column d-flex align-items-md-center" : ""}`}
         >
-          <div className="d-flex flex-row justify-content-between ">
+          <div className="d-flex flex-row justify-content-between w-100">
             <label className="fw-normal mx-3">Itens:</label>
             {!isMobile ? (
               <p className={`${status === "cancelado" ? "text-decoration-line-through" : ""} fw-bold p-0 m-0`}>
@@ -86,7 +86,7 @@ export default function CardPedido({ pedido }) {
             ) : null}
           </div>
 
-          <ul className="text-start m-0 ">
+          <ul className="text-start mx-2 my-0 align-self-start">
             {pedido.itens.map((item, index) => (
               <li key={index} >
                 <small className={`${status === "cancelado" ? "text-decoration-line-through" : ""} m-0 p-0 `}>

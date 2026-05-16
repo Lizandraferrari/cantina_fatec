@@ -1,8 +1,8 @@
-export default function Input({ label, name, value, onChange, type , className , placeholder }) {
+export default function Input({ label, name, value, onChange, type , className , placeholder , labelClassName }) {
     return (
         <div className="d-flex flex-column">
             {label ? (
-                <label htmlFor={name} className="mt-0 mx-2 align-self-start">
+                <label htmlFor={name} className={`mt-0 mx-2 align-self-start ${labelClassName || ''}`}>
                     {label}
                 </label>
             ) : null}

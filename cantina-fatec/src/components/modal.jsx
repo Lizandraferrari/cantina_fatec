@@ -43,7 +43,7 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
     };
 
     return (
-        <div className="modal fade show align-items-center d-flex " role="dialog">
+        <div className="modal fade show align-items-center d-flex " role="dialog sombra">
             <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div className="modal-content p-3 p-md-4 rounded-3 shadow position-relative  d-flex justify-content-center align-items-center">
 

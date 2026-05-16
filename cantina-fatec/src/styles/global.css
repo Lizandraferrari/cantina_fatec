@@ -18,7 +18,7 @@ main{
   flex-direction: column
 }
 
-h1{
+h1 , h2 , h3 , h4 , h5 , h6{
   color: var(--azul-cps);
   font-weight: 600;
 }
@@ -31,6 +31,9 @@ button{
 }
 button:hover{
   background-color: var(--azul-cps-hover);
+}
+input::placeholder{
+  font-weight: 300;
 }
 .btn-close:hover{
   background-color: transparent;
@@ -85,7 +88,7 @@ button:hover{
   max-width: 700px;
 }
 
-.modal {
-  background-color: rgba(0, 0, 0, 0.5);
+.sombra {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 

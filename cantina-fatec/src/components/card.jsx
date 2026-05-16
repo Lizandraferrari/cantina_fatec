@@ -15,7 +15,7 @@ export default function CardProduto({ name, image, price, quantity , category}) 
 
   return (
     <>
-      <article className="shadow p-4 text-center w-100 w-sm-auto rounded " style={{maxWidth:"300px"}}>
+      <article className="sombra p-4 text-center w-100 w-sm-auto rounded " style={{maxWidth:"300px"}}>
         <img 
           src={image} 
           alt={`Imagem do produto ${name}`} 
@@ -23,7 +23,7 @@ export default function CardProduto({ name, image, price, quantity , category}) 
         style={{ aspectRatio: "1/1", objectFit: "cover" }}
         />
 
-        <h3 className="fs-4 m-2">{name}</h3>
+        <h3 className="fs-4 m-2 text-black fw-medium">{name}</h3>
 
         <div className="d-flex justify-content-between align-items-center">
           
@@ -44,7 +44,7 @@ export default function CardProduto({ name, image, price, quantity , category}) 
 
         <Button 
           label="Editar"
-          className="w-100 mt-2 btn btn-primary"
+          className="mt-2"
           aria-label="Editar"
           onClick={editarProduto}
         >

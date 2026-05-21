@@ -41,22 +41,23 @@ const Estoque = () => {
       ></Header>
 
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center p-2 gap-2">
-        <div 
+        <div
           className="d-flex align-items-center "
           onClick={novoProduto}
-          style={{ cursor: 'pointer'}}
-          >
+          style={{ cursor: 'pointer' }}
+        >
           <i className="bi bi-plus text-danger fs-2"></i>
           <label className="fw-bold">
             Novo Produto
           </label>
         </div>
-
-        <Seletor
-          label={"Ordenar por:"}
-          options={["Menos Quantidade", "Mais Quantidade"]}
-          orientation={"horizontal"}
-        />
+        <div>
+          <Seletor
+            label={"Ordenar por:"}
+            options={["Menos Quantidade", "Mais Quantidade"]}
+            orientation={"horizontal"}
+          />
+        </div>
       </div>
 
       <div className="d-flex flex-wrap gap-3 p-3 align-items-stretch justify-content-center">
@@ -88,14 +89,14 @@ const Estoque = () => {
         }
 
       </div>
-            <Modal 
-              isOpen={isModalOpen}
-              onClose={fecharModal}
-              nome={''}
-              preco={''}
-              quantidade={0}
-              imagem={''}
-            />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={fecharModal}
+        nome={''}
+        preco={''}
+        quantidade={0}
+        imagem={''}
+      />
     </div>
   );
 };

@@ -44,7 +44,7 @@ const Pedidos = () => {
   ];
 
   return (
-    <>
+    <div>
       <div className="container-fluid ">
         <div className="row min-vh-100">
           {
@@ -87,12 +87,14 @@ const Pedidos = () => {
               </button>
             </div>
 
-            <div className="d-flex flex-row justify-content-md-end justify-content-center mb-3">
+            <div className="d-flex flex-row justify-content-md-end justify-content-center my-3">
+              <div className="w-md-25">
               <Seletor
-                label="Ordenar por"
+                label="Ordenar por:"
                 options={["Mais recente", "Mais antigo"]}
                 orientation={"horizontal"}
               />
+              </div>
             </div>
             <div>
               {
@@ -122,7 +124,7 @@ const Pedidos = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

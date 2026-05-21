@@ -1,20 +1,40 @@
 import { useState } from "react";
 import Button from "./button";
 import Input from "./input";
+import Seletor from "@/components/seletor";
 
-export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem , categoria }) {
+export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagemUrl, categoria }) {
+    const estiloErro = 'border border-danger';
+    const [valorErro, setValorErro] = useState('');
+    const [categoriaErro, setCategoriaErro] = useState('');
+    const [nomeErro, setNomeErro] = useState('');
+
     const [formData, setFormData] = useState({
         nome: nome || "",
         categoria: categoria || "",
         valor: preco || "",
         quantidade: quantidade || 0,
-        imagem: imagem || ""
+        imagemUrl: imagemUrl || ""
     });
 
     if (!isOpen) return null;
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === "valor") {
+            const apenasNumeros = value.replace(/\D/g, "");
+
+            const valorFormatado = (Number(apenasNumeros) / 100).toFixed(2);
+
+            setFormData(prev => ({
+                ...prev,
+                valor: valorFormatado
+            }));
+
+            return;
+        }
+
         setFormData(prev => ({
             ...prev,
             [name]: name === "quantidade" ? parseInt(value) || 0 : value
@@ -35,18 +55,23 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
             reader.onload = (event) => {
                 setFormData(prev => ({
                     ...prev,
-                    imagem: event.target.result
+                    imagemUrl: event.target.result
                 }));
             };
             reader.readAsDataURL(file);
         }
     };
 
-    return (
-        <div className="modal fade show align-items-center d-flex " role="dialog sombra">
-            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div className="modal-content p-3 p-md-4 rounded-3 shadow position-relative  d-flex justify-content-center align-items-center">
+    const handleSave = () => {
+        if (!formData.nome.trim()) setNomeErro("O nome do produto é obrigatório.");
+        if (!formData.categoria.trim()) setCategoriaErro("A categoria é obrigatória.");
+        if (!formData.valor || isNaN(formData.valor) <= 0) setValorErro("Valor inválido.");
+    }
 
+    return (
+        <div className="modal fade show align-items-center d-flex " role="dialog ">
+            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div className="modal-content p-3 p-md-4 rounded-3 shadow position-relative border-0 d-flex justify-content-center align-items-center">
                     <button
                         type="button"
                         className="btn-close position-absolute top-0 end-0 m-3"
@@ -58,9 +83,9 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                         <div className="row">
                             <div className="col-12 col-md-5 text-center d-flex flex-column align-items-center mb-3 mb-md-0">
                                 <div className="mb-2">
-                                    {formData.imagem ? (
+                                    {formData.imagemUrl ? (
                                         <img
-                                            src={formData.imagem}
+                                            src={formData.imagemUrl}
                                             alt={`Imagem do produto ${formData.nome}`}
                                             className="rounded img-fluid"
                                             style={{ maxHeight: "200px", objectFit: "cover" }}
@@ -97,17 +122,18 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                                         name="nome"
                                         value={formData.nome}
                                         onChange={handleInputChange}
+                                        className={`${nomeErro ? estiloErro : ''}`}
                                     />
                                 </div>
 
                                 <div className="mb-2">
-                                    <Input
-                                        id="categoria"
-                                        label="Categoria"
-                                        type="text"
+                                    <Seletor
                                         name="categoria"
+                                        label="Categoria"
+                                        options={["Bebidas", "Lanches", "Bomboniere"]}
                                         value={formData.categoria}
                                         onChange={handleInputChange}
+                                        className={`${categoriaErro ? estiloErro : ''}`}
                                     />
                                 </div>
 
@@ -118,9 +144,9 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                                             label="Valor"
                                             type="text"
                                             name="valor"
-                                            value={formData.valor}
+                                            value={Number(formData.valor || 0).toFixed(2).replace('.', ',')}
                                             onChange={handleInputChange}
-                                            className="w-100"
+                                            className={`w-100 ${valorErro ? estiloErro : ''}`}
                                         />
                                     </div>
 
@@ -143,6 +169,7 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                                                 value={formData.quantidade}
                                                 onChange={handleInputChange}
                                                 className="form-control text-center p-0"
+                                                min="0"
                                             />
                                             <button
                                                 type="button"
@@ -160,10 +187,10 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
 
                     <div className="d-flex flex-row justify-content-around gap-2 mt-3">
                         <div className="w-100 w-md-auto">
-                            <Button label="Salvar" color="azul-claro" />
+                            <Button label="Salvar" className="azul-claro" onClick={handleSave} />
                         </div>
                         <div className="w-100 w-md-auto">
-                            <Button label="Apagar" color="vermelho" />
+                            <Button label="Apagar" className="vermelho" />
                         </div>
                     </div>
 

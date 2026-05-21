@@ -63,16 +63,17 @@ const Estoque = () => {
       <div className="d-flex flex-wrap gap-3 p-3 align-items-stretch justify-content-center">
         {
           produtos ? (
-            produtos.map((produto, i) => (
+            produtos.map((produto, i) => {
+              return (
               <CardProduto
                 key={i}
                 name={produto.nome}
-                image={produto.imagem}
+                image={produto.imagemUrl}
                 price={produto.preco}
                 category={produto.categoria}
                 quantity={2}
-              />
-            ))
+              />)
+})
           ) : loading ? (
             <>
               <span
@@ -95,7 +96,7 @@ const Estoque = () => {
         nome={''}
         preco={''}
         quantidade={0}
-        imagem={''}
+        imagemUrl={''}
       />
     </div>
   );

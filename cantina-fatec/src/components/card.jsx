@@ -58,7 +58,7 @@ export default function CardProduto({ name, image, price, quantity , category}) 
         nome={name}
         preco={price}
         quantidade={quantity}
-        imagem={image}
+        imagemUrl={image}
       />
     </>
   )

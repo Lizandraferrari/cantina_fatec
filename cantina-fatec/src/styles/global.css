@@ -1,0 +1,106 @@
+
+body{
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--cinza-background);
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+}
+
+main{
+  display: flex;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column
+}
+
+h1 , h2 , h3 , h4 , h5 , h6{
+  color: var(--azul-cps);
+  font-weight: 600;
+}
+
+article:hover{
+    transform: scale(1.05);
+}
+button{
+  background-color: var(--azul-cps);
+}
+button:hover{
+  background-color: var(--azul-cps-hover);
+}
+input::placeholder{
+  font-weight: 300;
+}
+.btn-close:hover{
+  background-color: transparent;
+}
+.cinza-background{
+  background-color: var(--cinza-background);
+}
+.vermelho {
+  background-color: var(--vermelho-cps);
+}
+.azul-claro {
+  background-color: var(--azul-claro-cps);
+  color: #000 !important;
+}
+.entregue{
+  color: var(--verde-cps-ok)!important;
+}
+.borda-entregue{
+  border-color: var(--verde-cps-ok) !important;
+}
+.pendente{
+  color: var(--amarelo-cps-pendente)!important;
+}
+.borda-pendente{
+  border-color: var(--amarelo-cps-pendente) !important;
+}
+.cancelado{
+  color: var(--vermelho-cps-cancelado)!important;
+}
+.borda-cancelado{
+  border-color: var(--vermelho-cps-cancelado) !important;
+}
+.azul-claro:hover {
+  background-color: var(--azul-claro-cps-hover);
+}
+.vermelho:hover{
+  background-color: var(--vermelho-cps-hover);
+}
+
+:root{
+  --vermelho-cps: #B20000;
+  --vermelho-cps-hover: #7E0000;
+  --cinza-background: #f0f0f0;
+  --cinza-hover: #dadada;
+  --azul-cps: #005C6D;
+  --azul-cps-hover: #004854;
+  --azul-claro-cps: #00C1CF;
+  --azul-claro-cps-hover: #00D8E8;
+  --verde-cps-ok: #3ACF1F;
+  --amarelo-cps-pendente: #B78718;
+  --vermelho-cps-cancelado: #D32719;
+}
+.modal-content {
+  background-color: var(--cinza-background);
+  max-width: 700px;
+}
+
+.sombra {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.w-md-25{
+  width: 100%;
+}
+
+@media (min-width: 768px){
+  .w-md-25{
+    width: 25%;
+  }
+}

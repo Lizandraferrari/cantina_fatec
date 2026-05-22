@@ -3,6 +3,7 @@ import Input from '@/components/input';
 import Button from '@/components/button';
 import api from '@/services/api';
 import '../auth.css';
+import logo from "@/assets/logo_fatec_br.png";
 
 const Login = () => {
   const [error, setError] = useState('');
@@ -41,7 +42,7 @@ const Login = () => {
 
   return (
     <div className='auth justify-content-center d-flex flex-column align-items-center'>
-      <h1 className='text-white m-4'>Fatec</h1>
+      <img src={logo} alt="Fatec" width={150} />
 
       <div className='form d-flex flex-column align-items-center justify-content-center rounded pt-0 p-5'>
         <h2 className='py-5 px-3 m-1'>Área da Cantina</h2>

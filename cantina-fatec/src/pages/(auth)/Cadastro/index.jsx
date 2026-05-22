@@ -4,6 +4,7 @@ import api from '@/services/api';
 import '../auth.css';
 import Seletor from '@/components/seletor';
 import { useState } from 'react';
+import logo from "@/assets/logo_fatec_br.png";
 
 const Login = () => {
   const options = ['f113 - Fatec Mauá']
@@ -64,7 +65,7 @@ const Login = () => {
 
   return (
     <div className='auth justify-content-center d-flex flex-column align-items-center'>
-      <h1 className='text-white m-4'>Fatec</h1>
+      <img src={logo} alt="Fatec" width={150} />
 
       <div className='form d-flex flex-column align-items-center justify-content-center py-5 px-3 mb-4 rounded '>
         <h2>

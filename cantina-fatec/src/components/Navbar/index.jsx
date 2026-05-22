@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
+import logo from "@/assets/logo_fatec_br.png";
 
 const Navbar = () => {
   const location = useLocation();
@@ -10,7 +11,7 @@ const Navbar = () => {
 
         <div className="m-0">
           <Link to="/" className="text-white text-decoration-none">
-            FATEC
+            <img src={logo} alt="Fatec" width={120} />
           </Link>
         </div>
 

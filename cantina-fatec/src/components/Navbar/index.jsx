@@ -10,7 +10,7 @@ const Navbar = () => {
       <nav className="d-none d-md-flex justify-content-between align-items-center p-3 m-0">
 
         <div className="m-0">
-          <Link to="/" className="text-white text-decoration-none">
+          <Link to="/pedidos" className="text-white text-decoration-none">
             <img src={logo} alt="Fatec" width={120} />
           </Link>
         </div>

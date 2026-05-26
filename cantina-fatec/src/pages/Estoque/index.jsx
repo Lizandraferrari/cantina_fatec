@@ -19,17 +19,26 @@ const Estoque = () => {
     setIsModalOpen(false);
   }
 
-  useEffect(() => {
-    const fetchProdutos = async () => {
-      try {
-        const response = await api.get('/api/produtos');
-        setProdutos(response.data);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
 
+  const fetchProdutos = async () => {
+    try {
+
+      setLoading(true);
+
+      const response = await api.get('/api/produtos');
+
+      setProdutos(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
     fetchProdutos();
   }, []);
 
@@ -65,16 +74,17 @@ const Estoque = () => {
           produtos ? (
             produtos.map((produto, i) => {
               return (
-              <CardProduto
-                key={i}
-                id={produto._id}
-                name={produto.nome}
-                image={produto.imagemUrl}
-                price={produto.preco}
-                category={produto.categoria}
-                quantity={2}
-              />)
-})
+                <CardProduto
+                  key={i}
+                  id={produto._id}
+                  name={produto.nome}
+                  image={produto.imagemUrl}
+                  price={produto.preco}
+                  category={produto.categoria}
+                  quantity={2}
+                  atualizarProdutos={fetchProdutos}
+                />)
+            })
           ) : loading ? (
             <>
               <span
@@ -98,6 +108,7 @@ const Estoque = () => {
         preco={''}
         quantidade={0}
         imagemUrl={''}
+        atualizarProdutos={fetchProdutos}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./button";
 import Modal from "./modal";
 
-export default function CardProduto({ name, image, price, quantity, category , id }) {
+export default function CardProduto({ name, image, price, quantity, category , id , atualizarProdutos}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const editarProduto = () => {
@@ -61,6 +61,7 @@ export default function CardProduto({ name, image, price, quantity, category , i
         quantidade={quantity}
         imagemUrl={image}
         categoria={category}
+        atualizarProdutos={atualizarProdutos}
       />
     </>
   )

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";import Button from "./button";
+import { useEffect, useState } from "react"; import Button from "./button";
 import Input from "./input";
 import Seletor from "@/components/seletor";
 import api from "@/services/api";
 
-export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagemUrl, categoria, id }) {
+export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagemUrl, categoria, id , atualizarProdutos}) {
     const estiloErro = 'border border-danger';
     const [valorErro, setValorErro] = useState('');
     const [categoriaErro, setCategoriaErro] = useState('');
     const [nomeErro, setNomeErro] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         nome: nome || "",
@@ -16,15 +17,15 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
         quantidade: quantidade || 0,
         imagemUrl: imagemUrl || ""
     });
-useEffect(() => {
-    setFormData({
-        nome: nome || "",
-        categoria: categoria || "",
-        valor: preco || "",
-        quantidade: quantidade || 0,
-        imagemUrl: imagemUrl || ""
-    });
-}, [nome, categoria, preco, quantidade, imagemUrl]);
+    useEffect(() => {
+        setFormData({
+            nome: nome || "",
+            categoria: categoria || "",
+            valor: preco || "",
+            quantidade: quantidade || 0,
+            imagemUrl: imagemUrl || ""
+        });
+    }, [nome, categoria, preco, quantidade, imagemUrl]);
 
     if (!isOpen) return null;
 
@@ -76,6 +77,7 @@ useEffect(() => {
         }
     };
     const handleSave = async () => {
+        setLoading(true);
         setNomeErro('');
         setCategoriaErro('');
         setValorErro('');
@@ -126,6 +128,7 @@ useEffect(() => {
                 });
 
                 alert('Produto atualizado com sucesso.');
+                atualizarProdutos();
 
             }
 
@@ -146,6 +149,8 @@ useEffect(() => {
             console.error(error);
 
             alert('Não foi possível salvar o produto.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -272,8 +277,26 @@ useEffect(() => {
 
                     <div className="d-flex flex-row justify-content-around gap-2 mt-3">
                         <div className="w-100 w-md-auto">
-                            <Button label="Salvar" className="azul-claro" onClick={handleSave} />
-                        </div>
+                            <Button
+                                className="azul-claro"
+                                onClick={handleSave}
+                                disabled={loading}
+                                label={
+                                    loading ? (
+                                        <>
+                                            <span className="d-flex align-items-center justify-content-center">
+                                                <span
+                                                    className="spinner-border spinner-border-sm mx-2"
+                                                    role="status"
+                                                />
+                                                Salvando...
+                                            </span>
+                                        </>
+                                    ) : (
+                                        "Salvar"
+                                    )
+                                }
+                            />                        </div>
                         <div className="w-100 w-md-auto">
                             <Button label="Apagar" className="vermelho" />
                         </div>

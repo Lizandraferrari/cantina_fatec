@@ -2,7 +2,8 @@ import Header from "@/components/header";
 import CardPedido from '@/components/cardPedido';
 import FiltroPedido from '@/components/filtroPedido';
 import Seletor from '@/components/seletor';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
+import api from "@/services/api";
 
 const Pedidos = () => {
 
@@ -15,33 +16,21 @@ const Pedidos = () => {
     status: 'Pendente',
   });
 
-  const listaPedidos = [
-    {
-      id: 1807,
-      nome: "Fulano da Silva JP",
-      data: "17/03/2026 16:32",
-      status: "cancelado",
-      horastatus: "16:40",
-      total: "R$ 13,00",
-      itens: [
-        "1 Café 50ml",
-        "3 Pão",
-      ],
-    },
-    {
-      id: 1808,
-      nome: "Maria Oliveira",
-      data: "17/03/2026 17:05",
-      status: "entregue",
-      horastatus: "17:25",
-      total: "R$ 42,50",
-      itens: [
-        "2 Coxinha",
-        "1 Refrigerante 350ml",
-        "1 Pudim",
-      ],
-    }
-  ];
+  const [pedidos, setPedidos] = useState(null);
+
+    useEffect(() => {
+      const fetchPedidos = async () => {
+        try {
+          const response = await api.get('/pedidos');
+          setPedidos(response.data);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
+      };
+  
+      fetchPedidos();
+    }, []);
 
   return (
     <div>
@@ -98,8 +87,8 @@ const Pedidos = () => {
             </div>
             <div>
               {
-                listaPedidos ? (
-                  listaPedidos.map((pedido) => (
+                pedidos ? (
+                  pedidos.map((pedido) => (
                     <CardPedido
                       key={pedido.id}
                       pedido={pedido}

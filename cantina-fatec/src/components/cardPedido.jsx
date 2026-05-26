@@ -81,7 +81,7 @@ export default function CardPedido({ pedido }) {
             <label className="fw-normal mx-3">Itens:</label>
             {!isMobile ? (
               <p className={`${status === "cancelado" ? "text-decoration-line-through" : ""} fw-bold p-0 m-0`}>
-                Total: {pedido.total}
+                Total: {pedido.total.toFixed(2).replace(".", ",")}
               </p>
             ) : null}
           </div>

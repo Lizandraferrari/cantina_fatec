@@ -13,8 +13,8 @@ const Login = () => {
   const [senha, setSenha] = useState('');
   const [confirmSenha, setConfirmSenha] = useState('');
   const [nome, setNome] = useState('');
-  const [loading, setLoading] = useState(false); 
-  
+  const [loading, setLoading] = useState(false);
+
   const [emailErro, setEmailErro] = useState('');
   const [senhaErro, setSenhaErro] = useState('');
 
@@ -25,41 +25,54 @@ const Login = () => {
 
     if (senha !== confirmSenha) {
       setSenhaErro("As senhas devem ser iguais.");
-      setLoading(false);
-
-    } else {
-      setSenhaErro('');
+      return;
     }
 
-    setLoading(true); 
+    setSenhaErro('');
+    setEmailErro('');
+    setLoading(true);
+
     try {
-      const response = await api.post('/usuarios/login', {
-          email: email,
-          senha: senha
-        })
+
+      await api.post('/usuarios/login', {
+        email,
+        senha
+      });
+
       setEmailErro('E-mail já cadastrado.');
-      setLoading(false);
 
     } catch (error) {
-      
-      if(error === 404){
-        try{
-          const response = await api.post('/usuarios/registrar', {
-            nome: nome,
-            email: email,
-            senha: senha,
+
+      const status = error.response?.status;
+
+      if (status === 401) {
+        setEmailErro('E-mail já cadastrado.');
+        return;
+      }
+
+      if (status === 404) {
+
+        try {
+          await api.post('/usuarios/registrar', {
+            nome,
+            email,
+            senha,
             role: "ADMIN_UNIDADE"
-          })
-        
+          });
+
           window.location.href = '/';
 
-        } catch (error) {
-          alert('Não foi possível concluir a solicitação.');  
-
-        } finally {
-          setLoading(false);
+        } catch (err) {
+          alert('Não foi possível concluir o cadastro.');
         }
+
+        return;
       }
+
+      alert('Erro ao verificar usuário.');
+
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -73,7 +86,7 @@ const Login = () => {
         </h2>
 
         <form onSubmit={handleRegister} className='p-4 gap-3 d-flex flex-column'>
-          <label className= 'fw-medium' htmlFor='email'>
+          <label className='fw-medium' htmlFor='email'>
             Faça seu Cadastro:
           </label>
 
@@ -87,14 +100,14 @@ const Login = () => {
             placeholder='fulano.silva@fatec.sp.gov.br'
           />
           {emailErro ? <span className='text-danger d-relative m-0'>{emailErro}</span> : null}
-          <Seletor 
+          <Seletor
             label={"Selecione Sua Unidade"}
             default={options[0]}
             options={options}
             value={options[0]}
             onChange={(e) => setNome(e.target.value)}
             name='nome'
-            />
+          />
           <Input
             type='password'
             name='password'
@@ -102,7 +115,7 @@ const Login = () => {
             className={senhaErro ? estiloErro : ''}
             placeholder='••••••••'
             value={senha}
-            onChange={(e) => setSenha(e.target.value)}  
+            onChange={(e) => setSenha(e.target.value)}
           />
           {senhaErro && <span className='text-danger d-relative'>{senhaErro}</span>}
 
@@ -117,14 +130,14 @@ const Login = () => {
           />
           {senhaErro && <span className='text-danger d-relative m-0'>{senhaErro}</span>}
 
-          <Button 
-            type='submit' 
+          <Button
+            type='submit'
             disabled={loading}
           >
             {loading ? (
               <>
-                <span 
-                  className="spinner-border spinner-border-sm mx-2" 
+                <span
+                  className="spinner-border spinner-border-sm mx-2"
                   role="status"
                 />
                 Cadastrando...

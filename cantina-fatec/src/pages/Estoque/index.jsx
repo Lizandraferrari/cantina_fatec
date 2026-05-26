@@ -67,6 +67,7 @@ const Estoque = () => {
               return (
               <CardProduto
                 key={i}
+                id={produto._id}
                 name={produto.nome}
                 image={produto.imagemUrl}
                 price={produto.preco}

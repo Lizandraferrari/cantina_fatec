@@ -1,9 +1,9 @@
-import { useState } from "react";
-import Button from "./button";
+import { useEffect, useState } from "react";import Button from "./button";
 import Input from "./input";
 import Seletor from "@/components/seletor";
+import api from "@/services/api";
 
-export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagemUrl, categoria }) {
+export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagemUrl, categoria, id }) {
     const estiloErro = 'border border-danger';
     const [valorErro, setValorErro] = useState('');
     const [categoriaErro, setCategoriaErro] = useState('');
@@ -16,6 +16,15 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
         quantidade: quantidade || 0,
         imagemUrl: imagemUrl || ""
     });
+useEffect(() => {
+    setFormData({
+        nome: nome || "",
+        categoria: categoria || "",
+        valor: preco || "",
+        quantidade: quantidade || 0,
+        imagemUrl: imagemUrl || ""
+    });
+}, [nome, categoria, preco, quantidade, imagemUrl]);
 
     if (!isOpen) return null;
 
@@ -50,23 +59,95 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
+
         if (file) {
+
             const reader = new FileReader();
+
             reader.onload = (event) => {
                 setFormData(prev => ({
                     ...prev,
-                    imagemUrl: event.target.result
+                    imagemUrl: event.target.result,
+                    imagem: file
                 }));
             };
+
             reader.readAsDataURL(file);
         }
     };
+    const handleSave = async () => {
+        setNomeErro('');
+        setCategoriaErro('');
+        setValorErro('');
+        let possuiErro = false;
 
-    const handleSave = () => {
-        if (!formData.nome.trim()) setNomeErro("O nome do produto é obrigatório.");
-        if (!formData.categoria.trim()) setCategoriaErro("A categoria é obrigatória.");
-        if (!formData.valor || isNaN(formData.valor) <= 0) setValorErro("Valor inválido.");
-    }
+        if (!formData.nome.trim()) {
+            setNomeErro("O nome do produto é obrigatório.");
+            possuiErro = true;
+        }
+
+        if (!formData.categoria.trim()) {
+            setCategoriaErro("A categoria é obrigatória.");
+            possuiErro = true;
+        }
+
+        const valorTratado = Number(
+            String(formData.valor).replace(',', '.')
+        );
+
+        if (!formData.valor) {
+            setValorErro("O valor é obrigatório.");
+            possuiErro = true;
+        } else if (isNaN(valorTratado) || valorTratado <= 0) {
+            setValorErro("Valor inválido.");
+            possuiErro = true;
+        }
+
+        if (possuiErro) return;
+
+        const token = localStorage.getItem("token");
+        try {
+
+            const data = new FormData();
+
+            data.append('nome', formData.nome);
+            data.append('preco', valorTratado);
+            data.append('categoria', formData.categoria);
+
+            if (formData.imagem) {
+                data.append('imagem', formData.imagem);
+            }
+            if (id) {
+                await api.put(`/api/produtos/${id}`, data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                alert('Produto atualizado com sucesso.');
+
+            }
+
+            else {
+                await api.post('/api/produtos', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                alert('Produto cadastrado com sucesso.');
+            }
+
+            onClose();
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert('Não foi possível salvar o produto.');
+        }
+    };
 
     return (
         <div className="modal fade show align-items-center d-flex " role="dialog ">
@@ -130,10 +211,14 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                                     <Seletor
                                         name="categoria"
                                         label="Categoria"
-                                        options={["Bebidas", "Lanches", "Bomboniere"]}
+                                        options={["Bebida", "Lanche", "Bomboniere"]}
                                         value={formData.categoria}
-                                        onChange={handleInputChange}
-                                        className={`${categoriaErro ? estiloErro : ''}`}
+                                        onChange={(value) => {
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                categoria: value
+                                            }));
+                                        }}
                                     />
                                 </div>
 

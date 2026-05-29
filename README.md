@@ -33,6 +33,7 @@ npm run dev
 
 ## 🧑‍💻 Participantes
 
-- [Lizandra de Jesus Ferrari](https://github.com/Lizandraferrari)
-- [Victor Rojas](https://github.com/VictorRojasHub)  
 - [Felipe Day](https://github.com/FelipeDay)
+- [Lizandra de Jesus Ferrari](https://github.com/Lizandraferrari)
+- [Naiara Tamires Monteiro da Silva](https://github.com/21042021)
+- [Victor Rojas](https://github.com/VictorRojasHub)  

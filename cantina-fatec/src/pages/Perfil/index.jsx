@@ -22,14 +22,12 @@ export default function Perfil() {
     } catch (error) {
       console.error('Erro ao buscar perfil:', error);
 
-      alert(
-        error.response?.data?.detalhes ||
-        'Erro ao carregar perfil'
-      );
+      alert('Erro ao carregar perfil');
     }
   };
-
+  const [senhaErro, setSenhaErro] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -41,19 +39,25 @@ export default function Perfil() {
   });
   useEffect(() => {
     const carregarPerfil = async () => {
-      const dados = await buscarPerfil();
+      try {
+        setLoading(true);
 
-      if (dados) {
-        setProfile(dados);
+        const dados = await buscarPerfil();
 
-        setFormData({
-          email: dados.email || '',
-          chavePix: dados.chavePix || '',
-          password: '',
-          passwordConfirm: '',
-          relatorio: false,
-          frequencia: 'Diariamente',
-        });
+        if (dados) {
+          setProfile(dados);
+          console.log(dados);
+          setFormData({
+            email: dados.email || '',
+            chavePix: dados.nome || '',
+            password: '',
+            passwordConfirm: '',
+            relatorio: false,
+            frequencia: 'Diariamente',
+          });
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -62,12 +66,13 @@ export default function Perfil() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const data = {};
 
-    if (formData.password) {
+    if (formData.password || formData.passwordConfirm) {
       if (formData.password !== formData.passwordConfirm) {
-        alert('As senhas precisam ser iguais!');
+        setSenhaErro(true);
+        setLoading(false);
         return;
       }
 
@@ -78,8 +83,8 @@ export default function Perfil() {
       data.email = formData.email;
     }
 
-    if (formData.chavePix !== profile.chavePix) {
-      data.chavePix = formData.chavePix;
+    if (formData.chavePix !== profile.nome) {
+      data.nome = formData.chavePix;
     }
 
     if (data && Object.keys(data).length > 0) {
@@ -97,9 +102,9 @@ export default function Perfil() {
         );
 
         alert(response.data.mensagem);
+        setSenhaErro(false);
 
       } catch (error) {
-        console.error('Erro ao atualizar perfil:', error);
 
         alert(
           error.response?.data?.detalhes ||
@@ -107,6 +112,7 @@ export default function Perfil() {
         );
       }
     }
+    setLoading(false);
   }
   return (
     <>
@@ -116,7 +122,7 @@ export default function Perfil() {
       ></Header>
 
       <div className="d-flex flex-column align-items-center mt-4">
-        <form>
+        <div>
           <div className="d-flex flex-md-row flex-column w-100 justify-content-center gap-md-5 ">
             <Input
               className="mb-2"
@@ -150,7 +156,7 @@ export default function Perfil() {
 
           <div className="d-flex flex-md-row flex-column w-100 justify-content-center gap-md-5">
             <Input
-              className="mb-2"
+              className={`mb-2 ${senhaErro ? 'border border-danger' : ''}`}
               type="password"
               label="Nova Senha"
               name="password"
@@ -164,7 +170,7 @@ export default function Perfil() {
               }
             />
             <Input
-              className="mb-2"
+              className={`mb-2 ${senhaErro ? 'border border-danger' : ''}`}
               type="password"
               label="Confirmar Nova Senha"
               name="passwordConfirm"
@@ -194,7 +200,7 @@ export default function Perfil() {
           <div className="d-flex flex-md-row flex-column justify-content-center gap-md-5 mt-3 gap-3 mx-5">
             <Button
               label="Sair"
-              className='vermelho'
+              className='vermelho '
               onClick={() => {
                 if (confirm('Deseja mesmo deslogar da sua conta?')) {
                   localStorage.removeItem('token');
@@ -202,14 +208,25 @@ export default function Perfil() {
                 }
               }}
             ></Button>
+
             <Button
-              label="Salvar"
               className='azul'
               onClick={handleSubmit}
+              label={loading ? (
+                <>
+                  <span className="d-flex align-items-center justify-content-center">
+                    <span
+                      className="spinner-border spinner-border-sm mx-2"
+                      role="status"
+                    />
+                    Salvando...
+                  </span>
+                </>
+              ) : "Salvar"}
 
             ></Button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

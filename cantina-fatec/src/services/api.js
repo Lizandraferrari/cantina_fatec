@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: /*'https://fateclanchesback-0erx.onrender.com',*/'https://fateclanchesback.onrender.com',
+  baseURL: /*'https://fateclanchesback-0erx.onrender.com',*/'https://fateclanchesback-0erx.onrender.com',
   timeout: 10000,
 });
 

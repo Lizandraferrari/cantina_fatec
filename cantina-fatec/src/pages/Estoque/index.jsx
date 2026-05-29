@@ -81,7 +81,7 @@ const Estoque = () => {
                   image={produto.imagemUrl}
                   price={produto.preco}
                   category={produto.categoria}
-                  quantity={2}
+                  quantity={produto.quantidade}
                   atualizarProdutos={fetchProdutos}
                 />)
             })

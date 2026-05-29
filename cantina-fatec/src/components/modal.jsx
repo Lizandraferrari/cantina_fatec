@@ -115,7 +115,8 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
             data.append('nome', formData.nome);
             data.append('preco', valorTratado);
             data.append('categoria', formData.categoria);
-
+            data.append('quantidade', formData.quantidade);
+            
             if (formData.imagem) {
                 data.append('imagem', formData.imagem);
             }
@@ -128,7 +129,6 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                 });
 
                 alert('Produto atualizado com sucesso.');
-                atualizarProdutos();
 
             }
 
@@ -140,17 +140,18 @@ export default function Modal({ isOpen, onClose, nome, preco, quantidade, imagem
                     }
                 })
                 alert('Produto cadastrado com sucesso.');
-            }
 
+            }
             onClose();
 
         } catch (error) {
-
             console.error(error);
-
             alert('Não foi possível salvar o produto.');
+
         } finally {
             setLoading(false);
+            atualizarProdutos();
+
         }
     };
 

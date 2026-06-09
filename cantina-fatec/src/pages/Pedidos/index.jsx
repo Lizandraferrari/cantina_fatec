@@ -2,7 +2,7 @@ import Header from "@/components/header";
 import CardPedido from '@/components/cardPedido';
 import FiltroPedido from '@/components/filtroPedido';
 import Seletor from '@/components/seletor';
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from "@/services/api";
 
 const Pedidos = () => {
@@ -18,19 +18,19 @@ const Pedidos = () => {
 
   const [pedidos, setPedidos] = useState(null);
 
-    useEffect(() => {
-      const fetchPedidos = async () => {
-        try {
-          const response = await api.get('/pedidos');
-          setPedidos(response.data);
-        } catch (error) {
-          console.log(error);
-          setLoading(false);
-        }
-      };
-  
-      fetchPedidos();
-    }, []);
+  useEffect(() => {
+    const fetchPedidos = async () => {
+      try {
+        const response = await api.get('/api/pedidos');
+        setPedidos(response.data);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+
+    fetchPedidos();
+  }, []);
 
   return (
     <div>
@@ -78,11 +78,11 @@ const Pedidos = () => {
 
             <div className="d-flex flex-row justify-content-md-end justify-content-center my-3">
               <div className="w-md-25">
-              <Seletor
-                label="Ordenar por:"
-                options={["Mais recente", "Mais antigo"]}
-                orientation={"horizontal"}
-              />
+                <Seletor
+                  label="Ordenar por:"
+                  options={["Mais recente", "Mais antigo"]}
+                  orientation={"horizontal"}
+                />
               </div>
             </div>
             <div>
@@ -95,6 +95,11 @@ const Pedidos = () => {
                     />
                   ))
                 ) : loading ? (
+
+                  <p className="text-danger fw-bold">
+                    Não foi possível carregar os produtos. Tente novamente mais tarde.
+                  </p>
+                ) : (
                   <>
                     <span
                       className="spinner-border spinner-border-sm mx-1 text-danger"
@@ -102,10 +107,6 @@ const Pedidos = () => {
                     />
                     Carregando...
                   </>
-                ) : (
-                  <p className="text-danger fw-bold">
-                    Não foi possível carregar os produtos. Tente novamente mais tarde.
-                  </p>
                 )
               }
             </div>
